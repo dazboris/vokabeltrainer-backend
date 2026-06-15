@@ -20,6 +20,7 @@ def create_word(word: VocabularyWordCreate, db: Session = Depends(get_db)) -> Vo
         target_text=word.target_text,
         source_language=word.source_language,
         target_language=word.target_language,
+        topic=word.topic,
     )
     db.add(vocabulary_word)
     db.commit()
@@ -48,6 +49,7 @@ def update_word(
     vocabulary_word.target_text = word.target_text
     vocabulary_word.source_language = word.source_language
     vocabulary_word.target_language = word.target_language
+    vocabulary_word.topic = word.topic
     db.commit()
     db.refresh(vocabulary_word)
     return vocabulary_word

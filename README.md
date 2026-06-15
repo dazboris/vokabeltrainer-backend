@@ -94,3 +94,76 @@ curl -X PUT http://localhost:8000/words/1 \
 ```bash
 curl -X DELETE http://localhost:8000/words/1
 ```
+
+## Topics API
+
+The vocabulary overview screen uses topics with learned/total progress.
+
+```bash
+curl http://localhost:8000/topics
+```
+
+Response:
+
+```json
+[
+  {
+    "name": "Travel",
+    "learned_count": 18,
+    "total_count": 20
+  }
+]
+```
+
+Topic details:
+
+```bash
+curl http://localhost:8000/topics/Travel/words
+```
+
+## Practice API
+
+Generate cards for the learning screen:
+
+```bash
+curl -X POST http://localhost:8000/practice/cards \
+  -H "Content-Type: application/json" \
+  -d '{"topic":"Travel","source_language":"en","target_language":"de","number_of_words":20}'
+```
+
+Response:
+
+```json
+{
+  "topic": "Travel",
+  "source_language": "en",
+  "target_language": "de",
+  "cards": [
+    {
+      "word_id": 1,
+      "position": 1,
+      "total": 20,
+      "front_text": "airport",
+      "back_text": "Flughafen"
+    }
+  ]
+}
+```
+
+Save the session result:
+
+```bash
+curl -X POST http://localhost:8000/practice/results \
+  -H "Content-Type: application/json" \
+  -d '{"learned_word_ids":[1,2,3],"repeat_word_ids":[4,5]}'
+```
+
+Response:
+
+```json
+{
+  "topic": "Travel",
+  "learned": 3,
+  "repeat": 2
+}
+```

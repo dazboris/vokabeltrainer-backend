@@ -11,6 +11,7 @@ class VocabularyWordBase(BaseModel):
     target_text: str
     source_language: LanguageCode
     target_language: LanguageCode
+    topic: str = "General"
 
     @model_validator(mode="after")
     def validate_language_pair(self) -> "VocabularyWordBase":
@@ -31,4 +32,5 @@ class VocabularyWordRead(VocabularyWordBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    is_learned: bool
     created_at: datetime
