@@ -33,3 +33,64 @@ Expected response:
 ```json
 {"status":"ok"}
 ```
+
+## API Docs
+
+FastAPI exposes interactive API documentation at:
+
+- http://localhost:8000/docs
+- http://localhost:8000/redoc
+
+## Vocabulary Words API
+
+Vocabulary words support German to English and English to German pairs. Use ISO language codes:
+
+- `de` for German
+- `en` for English
+
+### Create Word
+
+```bash
+curl -X POST http://localhost:8000/words \
+  -H "Content-Type: application/json" \
+  -d '{"source_text":"Haus","target_text":"house","source_language":"de","target_language":"en"}'
+```
+
+Response:
+
+```json
+{
+  "id": 1,
+  "source_text": "Haus",
+  "target_text": "house",
+  "source_language": "de",
+  "target_language": "en",
+  "created_at": "2026-06-15T10:00:00"
+}
+```
+
+### List Words
+
+```bash
+curl http://localhost:8000/words
+```
+
+### Get Word
+
+```bash
+curl http://localhost:8000/words/1
+```
+
+### Update Word
+
+```bash
+curl -X PUT http://localhost:8000/words/1 \
+  -H "Content-Type: application/json" \
+  -d '{"source_text":"house","target_text":"Haus","source_language":"en","target_language":"de"}'
+```
+
+### Delete Word
+
+```bash
+curl -X DELETE http://localhost:8000/words/1
+```

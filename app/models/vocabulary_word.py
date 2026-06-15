@@ -10,8 +10,10 @@ class VocabularyWord(Base):
     __tablename__ = "vocabulary_words"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    german_word: Mapped[str] = mapped_column(String, nullable=False)
-    translation: Mapped[str] = mapped_column(String, nullable=False)
+    source_text: Mapped[str] = mapped_column(String, nullable=False)
+    target_text: Mapped[str] = mapped_column(String, nullable=False)
+    source_language: Mapped[str] = mapped_column(String(2), nullable=False)
+    target_language: Mapped[str] = mapped_column(String(2), nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
