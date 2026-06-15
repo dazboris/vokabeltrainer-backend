@@ -167,3 +167,46 @@ Response:
   "repeat": 2
 }
 ```
+
+## AI Word Generation
+
+The backend can generate vocabulary words with the OpenAI API and save them to the database.
+
+Configure an API key in your local environment:
+
+```bash
+OPENAI_API_KEY=your_api_key_here
+OPENAI_MODEL=gpt-5.5
+```
+
+Generate words for a user-provided topic:
+
+```bash
+curl -X POST http://localhost:8000/ai/generate-words \
+  -H "Content-Type: application/json" \
+  -d '{"topic":"Travel","source_language":"en","target_language":"de","number_of_words":20}'
+```
+
+Response:
+
+```json
+{
+  "topic": "Travel",
+  "source_language": "en",
+  "target_language": "de",
+  "words": [
+    {
+      "id": 1,
+      "source_text": "airport",
+      "target_text": "Flughafen",
+      "source_language": "en",
+      "target_language": "de",
+      "topic": "Travel",
+      "is_learned": false,
+      "created_at": "2026-06-15T10:00:00"
+    }
+  ]
+}
+```
+
+Do not commit a real `OPENAI_API_KEY` to GitHub.
